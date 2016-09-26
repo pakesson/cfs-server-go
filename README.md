@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pakesson/cfs-server-go.svg?branch=master)](https://travis-ci.org/pakesson/cfs-server-go)
+
 # CFS Go Server
 
 See the [CFS](https://github.com/pakesson/cfs) repository for more info.
