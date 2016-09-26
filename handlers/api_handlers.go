@@ -20,6 +20,7 @@ type DownloadResponse struct {
 }
 
 type UploadResponse struct {
+	Filename string `json:"filename"`
 	Key string `json:"key"`
 	Url string `json:"url"`
 }

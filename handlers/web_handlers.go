@@ -8,6 +8,7 @@ import (
 	"os"
 	"strconv"
 
+	"encoding/json"
 	"encoding/base64"
 	"html/template"
 	"io/ioutil"
@@ -33,6 +34,8 @@ const (
 	MAX_MEMORY = 10 * 1024 * 1024
 
 	TITLE = "CCFCSC - Cloud Crypto File Cloud Storage for the Cloud(tm)"
+
+	BASE_URL = "http://localhost:5000"
 )
 
 func createNonce() (*[NONCE_SIZE]byte, error) {
@@ -50,7 +53,7 @@ func WebUploadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl, err := template.ParseFiles("templates/index.html")
+	tmpl, err := template.ParseFiles("templates/upload.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -147,18 +150,11 @@ func WebUploadFileHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl, err := template.ParseFiles("templates/index.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	url := fmt.Sprintf("%s/download/%s", BASE_URL, key)
 
-	template_data := make(map[string]interface{})
-	template_data["title"] = TITLE
-	template_data["message"] = template.HTML(fmt.Sprintf("File uploaded. <a href=\"http://localhost:5000/download/%s\">http://localhost:5000/download/%s</a>.", key, key))
-
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	tmpl.Execute(w, template_data)
+	w.Header().Set("Content-Type", "application/json")
+	response := UploadResponse{Filename: filename, Key: key, Url: url}
+	json.NewEncoder(w).Encode(response)
 }
 
 func WebDownloadHandler(w http.ResponseWriter, r *http.Request) {
