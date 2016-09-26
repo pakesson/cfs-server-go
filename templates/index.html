@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <title>{{ .title }}</title>
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+    <h1>{{ .title }}</h1>
+
+    <h2>{{ .message }}</h2>
+
+    <h2>Upload file</h2>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <p>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" />
+        </p>
+        <p>
+            <label for="uploadFile">File:</label>
+            <input type="file" id="uploadFile" name="uploadFile" />
+        </p>
+        <p>
+            <input type="submit" value="Upload">
+        </p>
+    </form>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/js/bootstrap.min.js"></script>
+
+</div> <!-- /container -->
+</body>
+
+</html>
